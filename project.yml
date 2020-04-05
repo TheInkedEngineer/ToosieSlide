@@ -1,0 +1,59 @@
+name: ToosieSlide
+
+options:
+  minimumXcodeGenVersion: "2.11.0"
+  indentWidth: 2
+  tabWidth: 2
+  deploymentTarget:
+    iOS: "10.0"
+  generateEmptyDirectories: true
+
+targets:
+  ToosieSlide:
+    type: framework
+    platform: iOS
+    attributes:
+      ProvisioningStyle: Automatic
+    sources: [Sources]
+    info:
+      path: Sources/Resources/Info.plist
+      properties:
+        CFBundleIdentifier: "$(PRODUCT_BUNDLE_IDENTIFIER)"
+        CFBundleInfoDictionaryVersion: "6.0"
+        CFBundleExecutable: "$(EXECUTABLE_NAME)"
+        CFBundleName: "$(PRODUCT_NAME)"
+        CFBundleDevelopmentRegion: "$(DEVELOPMENT_LANGUAGE)"
+        CFBundleShortVersionString: "1.0.0"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        CFBundlePackageType: "FMWK"
+    settings:
+      TARGETED_DEVICE_FAMILY: 1
+      PRODUCT_BUNDLE_IDENTIFIER: "com.theinkedengineer.toosieSlide"
+
+  ToosieSlideDemo:
+    type: application
+    platform: iOS
+    attributes:
+      ProvisioningStyle: Automatic
+    sources: [Demo]
+    dependencies:
+      - target: ToosieSlide
+    info:
+      path: Demo/Resources/Info.plist
+      properties:
+        CFBundleName: "ToosieSlideDemo"
+        CFBundleDisplayName: "Toosie Slide"
+        CFBundleIdentifier: "$(PRODUCT_BUNDLE_IDENTIFIER)"
+        CFBundleInfoDictionaryVersion: "6.0"
+        CFBundleExecutable: "$(EXECUTABLE_NAME)"
+        CFBundleDevelopmentRegion: "$(DEVELOPMENT_LANGUAGE)"
+        CFBundleShortVersionString: "1.0.0"
+        CFBundleVersion: "1.0.0"
+        CFBundlePackageType: "APPL"
+        LSRequiresIPhoneOS: true
+        UIRequiredDeviceCapabilities: ["armv7"]
+        UISupportedInterfaceOrientations: ["UIInterfaceOrientationPortrait"]
+        UILaunchStoryboardName: "LaunchScreen.storyboard"
+    settings:
+      TARGETED_DEVICE_FAMILY: 1
+      PRODUCT_BUNDLE_IDENTIFIER: "com.theinkedengineer.toosieSlideDemo"
