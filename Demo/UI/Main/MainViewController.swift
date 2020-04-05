@@ -1,5 +1,5 @@
 //
-//  ToosieSlide
+//  Toosie Slide
 // 
 
 import UIKit
