@@ -10,10 +10,10 @@ class MainView: UIView {
   // MARK: - UIElements
   
   lazy var collection: UICollectionView = {
-    let carouselFlow = CarouselCollectionViewFlowLayout()
+    let carouselFlow = UICollectionViewCarouselLayout()
     carouselFlow.itemSize = CGSize(width: DemoCell.width, height: DemoCell.height)
     carouselFlow.minimumLineSpacing = 50
-    let collection = UICollectionView(carouselCollectionViewFlowLayout: carouselFlow)
+    let collection = UICollectionView(collectionViewCarouselLayout: carouselFlow)
     collection.register(DemoCell.self, forCellWithReuseIdentifier: DemoCell.identifier)
     return collection
   }()

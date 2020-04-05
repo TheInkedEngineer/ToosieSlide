@@ -4,18 +4,7 @@
 
 import UIKit
 
-public extension UICollectionView {
-  /// A convenient initializer to instantiate a UICollectionView and configue it with a CarouselCollectionViewFlowLayout
-  /// - Parameters:
-  ///   - frame: The CGRect frame to assign to the `UICollectionView` when creating it.
-  ///   - carouselCollectionViewFlowLayout: The `CarouselCollectionViewFlowLayout` instance to use when instantiating the `UIcollectionview`.
-  convenience init(frame: CGRect = .zero, carouselCollectionViewFlowLayout: CarouselCollectionViewFlowLayout) {
-    self.init(frame: frame, collectionViewLayout: carouselCollectionViewFlowLayout)
-    decelerationRate = UIScrollView.DecelerationRate.fast
-  }
-}
-
-open class CarouselCollectionViewFlowLayout: UICollectionViewFlowLayout {
+open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   
   // MARK: - Properties
   
@@ -78,7 +67,7 @@ open class CarouselCollectionViewFlowLayout: UICollectionViewFlowLayout {
     let verticalOffset = (collectionView.frame.size.height - itemSize.height) / 2
     // we set the inset of the content to be equal to the horizontal offset on the sides to simulate the centering of the cell.
     collectionView.contentInset = UIEdgeInsets(top: verticalOffset, left: horizontalOffset, bottom: verticalOffset, right: horizontalOffset)
-    
+    // position the cell in the center of the collection.
     collectionView.contentOffset = CGPoint(x: -horizontalOffset, y: -verticalOffset)
   }
   
