@@ -14,7 +14,7 @@ public extension UICollectionView {
     decelerationRate = UIScrollView.DecelerationRate.fast
   }
 
-  /// Returns an instance of `collectionViewLayout` downcasted to `CarouselCollectionViewFlowLayout`.
+  /// Returns an instance of `collectionViewLayout` down casted to `CarouselCollectionViewFlowLayout`.
   var carouselFlowLayout: UICollectionViewCarouselLayout {
     collectionViewLayout as! UICollectionViewCarouselLayout
   }

@@ -12,7 +12,7 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   public var currentVisibleCell = 0
   
   /// The lowest absolute velocity that should invoke a change of cells.
-  /// If the absolute velocity of the swipe is lower than this variable, the centeral cell does not change.
+  /// If the absolute velocity of the swipe is lower than this variable, the central cell does not change.
   public var lowestVelocitySensitivity: CGFloat = 0.2
   
   /// The space between the cell and the collection view edge.
@@ -21,7 +21,7 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     return (collectionView.frame.size.width - itemSize.width) / 2
   }
   
-  // MARK: - Overrided properties
+  // MARK: - Overridden properties
   
   open override var itemSize: CGSize {
     get { super.itemSize }
@@ -56,7 +56,7 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     currentVisibleCell = 0
   }
   
-  // MARK: - Overrided Methods
+  // MARK: - Overridden Methods
   
   open override func invalidateLayout() {
     super.invalidateLayout()
@@ -76,7 +76,7 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     withScrollingVelocity velocity: CGPoint
   ) -> CGPoint {
     
-    // The curremt offset
+    // The current offset
     let currentDistance = CGFloat(currentVisibleCell) * (itemSize.width + minimumLineSpacing) - spaceFromCollectionViewEdge
     
     guard
