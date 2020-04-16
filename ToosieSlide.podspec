@@ -12,10 +12,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '10.0'
   
   s.ios.source_files = [
-    'BloodyMary/Core/**/*.swift',
-    'BloodyMary/Navigation/*.swift',
-    'BloodyMary/Utility/*.swift',
-    'BloodyMary/Resources/BloodyMary.h',
+    'Sources/**/*.swift'
   ]
 
 end
