@@ -4,12 +4,24 @@
 
 import UIKit
 
+/// A type alias to simulate the idea of a cell index.
+public typealias CellIndex = Int
+
 open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   
   // MARK: - Properties
   
   /// The cell currently being displayed for the user.
-  public var currentVisibleCell = 0
+  public var currentVisibleCell: CellIndex = 0 {
+    willSet {
+      guard let collection = collectionView, newValue != currentVisibleCell else { return }
+      (collectionView?.delegate as? UICollectionViewDelegateCarouselLayout)?.collectionView(collection, willDisplayCellAt: newValue)
+    }
+    didSet {
+      guard let collection = collectionView, currentVisibleCell != oldValue else { return }
+      (collectionView?.delegate as? UICollectionViewDelegateCarouselLayout)?.collectionView(collection, didDisplayCellAt: currentVisibleCell)
+    }
+  }
   
   /// The lowest absolute velocity that should invoke a change of cells.
   /// If the absolute velocity of the swipe is lower than this variable, the central cell does not change.
@@ -80,7 +92,7 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   }
 
   open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-    /// Since `invalidateLayout()` is not called everytime the collection view `.bounds` changes, just listen
+    /// Since `invalidateLayout()` is not called every time the collection view `.bounds` changes, just listen
     /// and invalidate layout by caching the collection view size. `layoutAttributesForElements(in rect: CGRect)` is called
     /// every time the collection view doesn't know/isn't "sure" about where to place cells. It is called upon rotation as well.
     if latestKnownCollectionViewSize != collectionView?.bounds.size {
