@@ -5,10 +5,10 @@
 import UIKit
 
 public extension UICollectionView {
-  /// A convenient initializer to instantiate a `UICollectionView` and configue it with a `UICollectionViewCarouselLayout`
+  /// A convenient initializer to instantiate a `UICollectionView` and configure it with a `UICollectionViewCarouselLayout`
   /// - Parameters:
   ///   - frame: The CGRect frame to assign to the `UICollectionView` when creating it.
-  ///   - collectionViewCarouselLayout: The `UICollectionViewCarouselLayout` instance to use when instantiating the `UIcollectionview`.
+  ///   - collectionViewCarouselLayout: The `UICollectionViewCarouselLayout` instance to use when instantiating the `UIcollectionView`.
   convenience init(frame: CGRect = .zero, collectionViewCarouselLayout: UICollectionViewCarouselLayout) {
     self.init(frame: frame, collectionViewLayout: collectionViewCarouselLayout)
     decelerationRate = UIScrollView.DecelerationRate.fast
@@ -30,5 +30,12 @@ public extension UICollectionView {
     let index = min(carouselFlowLayout.currentVisibleCell + 1, numberOfItems(inSection: 0) - 1)
     scrollToItem(at: IndexPath(row: index, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: animated)
     carouselFlowLayout.currentVisibleCell = index
+  }
+  
+  /// Returns the visible cell object at the specified `CellIndex`.
+  /// - Parameter index: The `CellIndex` that specifies the item number of the cell.
+  /// - Returns: The cell object at the corresponding index path or nil if the cell is not visible or indexPath is out of range.
+  func cellForItem(at index: CellIndex) -> UICollectionViewCell? {
+    cellForItem(at: IndexPath(item: index, section: 0))
   }
 }
