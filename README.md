@@ -21,7 +21,7 @@ Future versions will bring more features:
 ## Cocoapods
 
 Add the following line to your Podfile
-` pod 'ToosieSlide' ~> '0.0.1' `
+` pod 'ToosieSlide' ~> '0.1.1' `
 
 # 3. Documentation
 

@@ -12,5 +12,9 @@ All relative changes will be documented in this file. \
 ## 0.1.x
 ### April 16, 2020
 
+#### 0.1.1
+* Changed approach on how to center cell in middle.
+
+#### 0.1.0
 * Initial release
 
