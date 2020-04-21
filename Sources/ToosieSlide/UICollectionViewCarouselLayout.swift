@@ -15,10 +15,26 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   /// If the absolute velocity of the swipe is lower than this variable, the central cell does not change.
   public var lowestVelocitySensitivity: CGFloat = 0.2
   
-  /// The space between the cell and the collection view edge.
+  /// The space between the cell and the collection view edge. If no collection view is yet available, it just returns `.zero`.
   public var spaceFromCollectionViewEdge: CGFloat {
-    guard let collectionView = collectionView else { return .zero }
-    return (collectionView.frame.size.width - itemSize.width) / 2
+    guard let collectionView = collectionView, collectionView.bounds.width > 0 else {
+      return .zero
+    }
+    return (collectionView.bounds.width - itemSize.width) / 2
+  }
+  
+  /// The latest known CV size, it is useful to understand when collection view size has changed but no `invalidateLayout()` is automatically
+  /// called by iOS.
+  private var latestKnownCollectionViewSize: CGSize?
+  
+  /// Updates collection view section insets with leading and trailing space.
+  private func updateSectionInsets() {
+    sectionInset = UIEdgeInsets(
+      top: sectionInset.top,
+      left: spaceFromCollectionViewEdge,
+      bottom: sectionInset.bottom,
+      right: spaceFromCollectionViewEdge
+    )
   }
   
   // MARK: - Overridden properties
@@ -60,24 +76,26 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   
   open override func invalidateLayout() {
     super.invalidateLayout()
-    
-    guard let collectionView = collectionView else { return }
-    
-    let horizontalOffset = (collectionView.frame.size.width - itemSize.width) / 2
-    let verticalOffset = (collectionView.frame.size.height - itemSize.height) / 2
-    // we set the inset of the content to be equal to the horizontal offset on the sides to simulate the centering of the cell.
-    collectionView.contentInset = UIEdgeInsets(top: verticalOffset, left: horizontalOffset, bottom: verticalOffset, right: horizontalOffset)
-    // position the cell in the center of the collection.
-    collectionView.contentOffset = CGPoint(x: -horizontalOffset, y: -verticalOffset)
+    updateSectionInsets()
+  }
+
+  open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    /// Since `invalidateLayout()` is not called everytime the collection view `.bounds` changes, just listen
+    /// and invalidate layout by caching the collection view size. `layoutAttributesForElements(in rect: CGRect)` is called
+    /// every time the collection view doesn't know/isn't "sure" about where to place cells. It is called upon rotation as well.
+    if latestKnownCollectionViewSize != collectionView?.bounds.size {
+      latestKnownCollectionViewSize = collectionView?.bounds.size
+      invalidateLayout()
+    }
+    return super.layoutAttributesForElements(in: rect)
   }
   
   open override func targetContentOffset(
     forProposedContentOffset proposedContentOffset: CGPoint,
     withScrollingVelocity velocity: CGPoint
   ) -> CGPoint {
-    
     // The current offset
-    let currentDistance = CGFloat(currentVisibleCell) * (itemSize.width + minimumLineSpacing) - spaceFromCollectionViewEdge
+    let currentDistance = CGFloat(currentVisibleCell) * (itemSize.width + minimumLineSpacing)
     
     guard
       let collectionView = collectionView,
