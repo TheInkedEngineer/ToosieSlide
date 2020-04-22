@@ -38,7 +38,7 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   /// The space between the cell and the collection view vertical edge. If no collection view is yet available, it just returns `.zero`.
   /// This is calculated and set as the inset of the collection view to ensure always a single row of cells that are always centered.
   private var verticalSpacingFromCollectionViewEdge: CGFloat {
-    guard let collectionView = collectionView, collectionView.bounds.width > 0 else { return .zero }
+    guard let collectionView = collectionView, collectionView.bounds.height > 0 else { return .zero }
     return (collectionView.bounds.height - itemSize.height) / 2
   }
   
@@ -115,8 +115,8 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     forProposedContentOffset proposedContentOffset: CGPoint,
     withScrollingVelocity velocity: CGPoint
   ) -> CGPoint {
-    // check if fast enough to scroll
-    guard let collectionView = collectionView, abs(velocity.x) > lowestVelocitySensitivity else {
+    // check collection not empty and if fast enough to scroll
+    guard let collectionView = collectionView, collectionView.numberOfItems(inSection: 0) > 0, abs(velocity.x) > lowestVelocitySensitivity else {
       return CGPoint(x: currentOffset, y: 0)
     }
     
