@@ -8,7 +8,7 @@ public extension UICollectionView {
   /// A convenient initializer to instantiate a `UICollectionView` and configure it with a `UICollectionViewCarouselLayout`
   /// - Parameters:
   ///   - frame: The CGRect frame to assign to the `UICollectionView` when creating it.
-  ///   - collectionViewCarouselLayout: The `UICollectionViewCarouselLayout` instance to use when instantiating the `UIcollectionView`.
+  ///   - collectionViewCarouselLayout: The `UICollectionViewCarouselLayout` instance to use when instantiating the `UICollectionView`.
   convenience init(frame: CGRect = .zero, collectionViewCarouselLayout: UICollectionViewCarouselLayout) {
     self.init(frame: frame, collectionViewLayout: collectionViewCarouselLayout)
     decelerationRate = UIScrollView.DecelerationRate.fast
@@ -27,16 +27,23 @@ public extension UICollectionView {
   ///   - animated: Whether or not to animate the scroll.
   func scrollToCell(at index: CellIndex, animated: Bool = true) {
     assert(index >= 0, "`index` cannot be negative.")
-    // check if delegate allows it.
-    guard (delegate as? UICollectionViewDelegateCarouselLayout)?.collectionView(self, shouldDisplayCellAt: index) != false else { return }
+    
+    // check if delegate allows it. check if section not empty
+    guard
+      (delegate as? UICollectionViewDelegateCarouselLayout)?.collectionView(self, shouldDisplayCellAt: index) != false,
+      numberOfItems(inSection: 0) > 0
+    else {
+      return
+    }
+    
     // make sure index don't overflow
     let index = min(index, numberOfItems(inSection: 0) - 1)
     // get new offset
     let finalOffset = carouselFlowLayout.currentOffset + CGFloat(index) * (carouselFlowLayout.itemSize.width + carouselFlowLayout.minimumLineSpacing)
-    // navigate to offset
-    setContentOffset(CGPoint(x: finalOffset, y: contentOffset.y), animated: animated)
     // update visible cell
     carouselFlowLayout.currentVisibleCellIndex = index
+    // navigate to offset
+    setContentOffset(CGPoint(x: finalOffset, y: contentOffset.y), animated: animated)
   }
   
   /// Returns the visible cell object at the specified `CellIndex`.
