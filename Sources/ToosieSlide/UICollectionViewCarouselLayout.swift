@@ -28,6 +28,10 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     CGFloat(currentVisibleCellIndex) * (itemSize.width + minimumLineSpacing)
   }
   
+  /// The scale factor to apply to the visible cell's height. Defaults to 1.
+  /// The height of the item will be multiplied by this value, so a value lower than 1 will make it smaller, greater than 1 will make it bigger.
+  public var visibleItemHeightScaleFactor: CGFloat = 1 { didSet { invalidateLayout() } }
+  
   /// The space between the cell and the collection view horizontal edge. If no collection view is yet available, it just returns `.zero`.
   /// This is calculated and set as the inset of the collection view to ensure always a single row of cells that are always centered.
   private var horizontalSpacingFromCollectionViewEdge: CGFloat {
@@ -45,6 +49,9 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   /// The latest known CV size, it is useful to understand when collection view size has changed but no `invalidateLayout()` is automatically
   /// called by iOS.
   private var latestKnownCollectionViewSize: CGSize?
+  
+  /// A flag needed to force the resize of the first cell, if needed, when first layouting.
+  private var isFirstLayout: Bool = true
   
   // MARK: - Overridden properties
   
@@ -99,7 +106,26 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     super.invalidateLayout()
     updateSectionInsets()
   }
-
+  
+  open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    // unwrap super's attributes
+    guard let superArray = super.layoutAttributesForElements(in: rect) else { return nil }
+    
+    // if this is not the first layout, return attributes as is
+    guard isFirstLayout, superArray[0].indexPath.row == 0 else { return superArray }
+    
+    // make sure this part won't be triggered again.
+    isFirstLayout = false
+    
+    // deep copy items. A shallow copy is not enough since it will lead to inconsistencies in the cache.
+    guard let attributes = NSArray(array: superArray, copyItems: true) as? [UICollectionViewLayoutAttributes] else { return nil }
+    
+    // modify attributes of first cell. We know it's first cell from the guard.
+    attributes[0].bounds.size.height = self.itemSize.height * self.visibleItemHeightScaleFactor
+    
+    return attributes
+  }
+  
   open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
     /// Since `invalidateLayout()` is not called every time the collection view `.bounds` changes, just listen
     /// and invalidate layout by caching the collection view size. `layoutAttributesForElements(in rect: CGRect)` is called
@@ -121,8 +147,8 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     }
     
     let futureCellIndex = velocity.x > 0 ?
-    min(currentVisibleCellIndex + 1, collectionView.numberOfItems(inSection: 0) - 1) :
-    max(0, currentVisibleCellIndex - 1)
+      min(currentVisibleCellIndex + 1, collectionView.numberOfItems(inSection: 0) - 1) :
+      max(0, currentVisibleCellIndex - 1)
     
     if let delegate = (collectionView.delegate as? UICollectionViewDelegateCarouselLayout) {
       // defaults to true, check if another implementation forces it to not show.
@@ -139,6 +165,37 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     // update visible cell index
     currentVisibleCellIndex = futureCellIndex
     
+    resizeCellsIfNeeded()
+    
     return CGPoint(x: distanceToMove, y: 0)
+  }
+}
+
+internal extension UICollectionViewCarouselLayout {
+  /// Resizes and animates the cells according to `visibleItemWidthScaleFactor` and `visibleItemHeightScaleFactor`.
+  /// If both variables are equal to 1, nothing will happen.
+  func resizeCellsIfNeeded() {
+    guard let collectionView = collectionView, (visibleItemHeightScaleFactor != 1 || nonFocusedItemsScaleFactor != 1) else {
+      return
+    }
+    
+    let previousCell = collectionView.cellForItem(at: currentVisibleCellIndex - 1)
+    let currentCell = collectionView.cellForItem(at: currentVisibleCellIndex)
+    let nextCell = collectionView.cellForItem(at: currentVisibleCellIndex + 1)
+    
+    collectionView.setNeedsLayout()
+    UIView.animate(withDuration: 0.3) { [weak collectionView, weak self] in
+      guard let self = self else { return }
+      
+      previousCell?.bounds.size.height = self.itemSize.height * self.nonFocusedItemsScaleFactor
+      currentCell?.bounds.size.height = self.itemSize.height * self.visibleItemHeightScaleFactor
+      nextCell?.bounds.size.height = self.itemSize.height * self.nonFocusedItemsScaleFactor
+      
+      previousCell?.alpha = 0.2
+      currentCell?.alpha = 1
+      nextCell?.alpha = 0.2
+      
+      collectionView?.layoutIfNeeded()
+    }
   }
 }
