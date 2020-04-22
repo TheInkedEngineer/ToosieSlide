@@ -142,9 +142,3 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     return CGPoint(x: distanceToMove, y: 0)
   }
 }
-
-// MARK: - Helpers
-
-internal extension UICollectionViewCarouselLayout {
-  
-}
