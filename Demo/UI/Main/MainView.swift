@@ -80,8 +80,4 @@ extension MainView: UICollectionViewDelegateCarouselLayout {
   func collectionView(_ collectionView: UICollectionView, willDisplayCellAt cellIndex: CellIndex) {
     print("Will Display Cell at \(cellIndex)")
   }
-  
-  func collectionView(_ collectionView: UICollectionView, didDisplayCellAt cellIndex: CellIndex) {
-    print("Did Display Cell at \(cellIndex)")
-  }
 }

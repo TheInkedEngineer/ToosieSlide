@@ -8,18 +8,18 @@ import UIKit
 /// Methods in this protocol are optional.
 /// This protocol conforms to `UICollectionViewDelegateFlowLayout`.
 public protocol UICollectionViewDelegateCarouselLayout: UICollectionViewDelegateFlowLayout {
-  /// Tells the delegate that the cell at a given `CellIndex` has been shown on screen.
+  /// Asks the delegate if the cell at a given `CellIndex` should been shown on screen.
   ///
-  /// This method will only be invoked if the layout's `currentVisibleCell` value changes.
+  /// This method will only be invoked when the scrolling stops.
   /// - Parameters:
   ///   - collectionView: The collection view calling this method.
-  ///   - didShowCellAt: The `CellIndex` of the cell currently being displayed.
-  func collectionView(_ collectionView: UICollectionView, didDisplayCellAt cellIndex: CellIndex)
+  ///   - shouldDisplayCellAt: The `CellIndex` of the cell to be displayed.
+  func collectionView(_ collectionView: UICollectionView, shouldDisplayCellAt cellIndex: CellIndex) -> Bool
   
   /// Tells the delegate that the cell at a given `CellIndex` will be shown on screen.
   ///
   /// This is meant to replace `func collectionView(UICollectionView, willDisplay: UICollectionViewCell, forItemAt: IndexPath)`.
-  /// The default methods messes up the `IndexPath` when an uncomplete snap takes place.
+  /// The default methods messes up the `IndexPath` when an incomplete snap takes place.
   /// This method will only be invoked if the layout's `currentVisibleCell` value changes.
   /// - Parameters:
   ///   - collectionView: The collection view calling this method.
@@ -28,6 +28,6 @@ public protocol UICollectionViewDelegateCarouselLayout: UICollectionViewDelegate
 }
 
 public extension UICollectionViewDelegateCarouselLayout {
-  func collectionView(_ collectionView: UICollectionView, didDisplayCellAt cellIndex: CellIndex) {}
+  func collectionView(_ collectionView: UICollectionView, shouldDisplayCellAt cellIndex: CellIndex) -> Bool { true }
   func collectionView(_ collectionView: UICollectionView, willDisplayCellAt cellIndex: CellIndex) {}
 }

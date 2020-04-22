@@ -5,10 +5,10 @@
 import UIKit
 
 public extension UICollectionView {
-  /// A convenient initializer to instantiate a `UICollectionView` and configue it with a `UICollectionViewCarouselLayout`
+  /// A convenient initializer to instantiate a `UICollectionView` and configure it with a `UICollectionViewCarouselLayout`
   /// - Parameters:
   ///   - frame: The CGRect frame to assign to the `UICollectionView` when creating it.
-  ///   - collectionViewCarouselLayout: The `UICollectionViewCarouselLayout` instance to use when instantiating the `UIcollectionview`.
+  ///   - collectionViewCarouselLayout: The `UICollectionViewCarouselLayout` instance to use when instantiating the `UIcollectionView`.
   convenience init(frame: CGRect = .zero, collectionViewCarouselLayout: UICollectionViewCarouselLayout) {
     self.init(frame: frame, collectionViewLayout: collectionViewCarouselLayout)
     decelerationRate = UIScrollView.DecelerationRate.fast
@@ -27,8 +27,22 @@ public extension UICollectionView {
   ///   - animated: Whether or not to animate the scroll.
   func scrollToCell(at index: CellIndex, animated: Bool = true) {
     assert(index >= 0, "`index` cannot be negative.")
-    let index = min(carouselFlowLayout.currentVisibleCell + 1, numberOfItems(inSection: 0) - 1)
-    scrollToItem(at: IndexPath(row: index, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: animated)
-    carouselFlowLayout.currentVisibleCell = index
+    // check if delegate allows it.
+    guard (delegate as? UICollectionViewDelegateCarouselLayout)?.collectionView(self, shouldDisplayCellAt: index) != false else { return }
+    // make sure index don't overflow
+    let index = min(index, numberOfItems(inSection: 0) - 1)
+    // get new offset
+    let finalOffset = carouselFlowLayout.currentOffset + CGFloat(index) * (carouselFlowLayout.itemSize.width + carouselFlowLayout.minimumLineSpacing)
+    // navigate to offset
+    setContentOffset(CGPoint(x: finalOffset, y: contentOffset.y), animated: animated)
+    // update visible cell
+    carouselFlowLayout.currentVisibleCellIndex = index
+  }
+  
+  /// Returns the visible cell object at the specified `CellIndex`.
+  /// - Parameter index: The `CellIndex` that specifies the item number of the cell.
+  /// - Returns: The cell object at the corresponding index path or nil if the cell is not visible or indexPath is out of range.
+  func cellForItem(at index: CellIndex) -> UICollectionViewCell? {
+    cellForItem(at: IndexPath(item: index, section: 0))
   }
 }
