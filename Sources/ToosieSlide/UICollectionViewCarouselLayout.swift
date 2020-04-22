@@ -17,10 +17,6 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
       guard let collection = collectionView, newValue != currentVisibleCell else { return }
       (collectionView?.delegate as? UICollectionViewDelegateCarouselLayout)?.collectionView(collection, willDisplayCellAt: newValue)
     }
-    didSet {
-      guard let collection = collectionView, currentVisibleCell != oldValue else { return }
-      (collectionView?.delegate as? UICollectionViewDelegateCarouselLayout)?.collectionView(collection, didDisplayCellAt: currentVisibleCell)
-    }
   }
   
   /// The lowest absolute velocity that should invoke a change of cells.
@@ -109,21 +105,29 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     // The current offset
     let currentDistance = CGFloat(currentVisibleCell) * (itemSize.width + minimumLineSpacing)
     
-    guard
-      let collectionView = collectionView,
-      abs(velocity.x) > lowestVelocitySensitivity
-      
-      else {
+    // check if fast enough to scroll
+    guard let collectionView = collectionView, abs(velocity.x) > lowestVelocitySensitivity else {
       return CGPoint(x: currentDistance, y: 0)
     }
     
+    let futureCellIndex = velocity.x > 0 ?
+    min(currentVisibleCell + 1, collectionView.numberOfItems(inSection: 0) - 1) :
+    max(0, currentVisibleCell - 1)
+    
+    if let delegate = (collectionView.delegate as? UICollectionViewDelegateCarouselLayout) {
+      // defaults to true, check if another implementation forces it to not show.
+      guard delegate.collectionView(collectionView, shouldDisplayCellAt: futureCellIndex) else {
+        return CGPoint(x: currentDistance, y: 0)
+      }
+    }
+    
+    // actual distance to scroll
     let distanceToMove = velocity.x > 0 ?
       currentDistance + itemSize.width + minimumLineSpacing :
       currentDistance - itemSize.width - minimumLineSpacing
     
-    currentVisibleCell = velocity.x > 0 ?
-      min(currentVisibleCell + 1, collectionView.numberOfItems(inSection: 0) - 1) :
-      max(0, currentVisibleCell - 1)
+    // update visible cell index
+    currentVisibleCell = futureCellIndex
     
     return CGPoint(x: distanceToMove, y: 0)
   }
