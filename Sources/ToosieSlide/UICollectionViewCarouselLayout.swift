@@ -9,6 +9,7 @@ public typealias CellIndex = Int
 
 /// A Custom `UICollectionViewFlowLayout` that simulates a carousel. That is a paginated collection view, with the focused item only in the center of the collection.
 /// In addition `UICollectionViewCarouselLayout` offers the possibility to resize the non focused cells and change their alpha while scrolling.
+/// For the proper functioning of this flow layout, collection view's `decelerationRate` should be set to fast.
 ///
 /// For the proper functioning of `UICollectionViewCarouselLayout` you are required to set the item size, either using the convenience `init(itemSize: CGSize)`
 /// or by manually calling `layout.itemSize` and setting its value.
@@ -50,8 +51,8 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     CGFloat(currentVisibleCellIndex) * (itemSize.width + minimumLineSpacing)
   }
   
-  /// The latest known CV size, it is useful to understand when collection view size has changed but no `invalidateLayout()` is automatically
-  /// called by iOS.
+  /// The latest known collection view size, it is useful to understand when collection view size has changed
+  /// to manually call `invalidateLayout()` since iOS won't call it when subclassing UICollectionView.
   private var latestKnownCollectionViewSize: CGSize?
   
   /// The space between the cell and the collection view horizontal edge. If no collection view is yet available, it just returns `.zero`.
@@ -256,7 +257,8 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
 }
 
 internal extension UICollectionViewCarouselLayout {
-  /// Resizes and animates the cells if any of `focusedItemHeightScaleFactor`, `focusedItemAlphaValue`, `nonFocusedItemsScaleFactor`, `nonFocusedItemsAlphaValue`
+  /// Resizes and animates the cells if any of `focusedItemHeightScaleFactor`, `focusedItemAlphaValue`,
+  /// `nonFocusedItemsScaleFactor`, `nonFocusedItemsAlphaValue`
   /// is different of 1, else returns.
   func resizeCellsIfNeeded() {
     guard

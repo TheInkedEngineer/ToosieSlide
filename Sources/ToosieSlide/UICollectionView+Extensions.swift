@@ -6,6 +6,7 @@ import UIKit
 
 public extension UICollectionView {
   /// A convenient initializer to instantiate a `UICollectionView` and configure it with a `UICollectionViewCarouselLayout`
+  /// The `decelerationRate` of the cell is automatically set to `.fast`
   /// - Parameters:
   ///   - frame: The CGRect frame to assign to the `UICollectionView` when creating it.
   ///   - collectionViewCarouselLayout: The `UICollectionViewCarouselLayout` instance to use when instantiating the `UICollectionView`.

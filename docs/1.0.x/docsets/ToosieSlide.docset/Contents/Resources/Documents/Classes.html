@@ -86,7 +86,8 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>A Custom <code>UICollectionViewFlowLayout</code> that simulates a carousel. That is a paginated collection view, with the focused item only in the center of the collection.
-In addition <code>UICollectionViewCarouselLayout</code> offers the possibility to resize the non focused cells and change their alpha while scrolling.</p>
+In addition <code>UICollectionViewCarouselLayout</code> offers the possibility to resize the non focused cells and change their alpha while scrolling.
+For the proper functioning of this flow layout, collection view&rsquo;s <code>decelerationRate</code> should be set to fast.</p>
 
 <p>For the proper functioning of <code>UICollectionViewCarouselLayout</code> you are required to set the item size, either using the convenience <code>init(itemSize: CGSize)</code>
 or by manually calling <code>layout.itemSize</code> and setting its value.
@@ -104,7 +105,7 @@ Because a concrete fixed item size is needed to be able to calculate the various
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L17-L263">Show on GitHub</a>
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L18-L257">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
