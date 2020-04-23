@@ -54,10 +54,6 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   /// called by iOS.
   private var latestKnownCollectionViewSize: CGSize?
   
-  /// A flag needed to force the resize of the first cell, if needed, when first layouting.
-  /// This is set to `false` after first scroll.
-  private var isFirstLayout: Bool = true
- 
   /// The space between the cell and the collection view horizontal edge. If no collection view is yet available, it just returns `.zero`.
   /// This is calculated and set as the inset of the collection view to ensure always a single row of cells that are always centered.
   private var horizontalSpacingFromCollectionViewEdge: CGFloat {
@@ -159,7 +155,7 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     
     attributes.enumerated().forEach { index, element in
       // if first layout, apply focus attributes to first element.
-      if isFirstLayout && element.indexPath.row == 0 {
+      if element.indexPath.row == currentVisibleCellIndex {
         attributes[index].bounds.size.height = itemSize.height * focusedItemHeightScaleFactor
         attributes[index].alpha = focusedItemAlphaValue
         return
@@ -223,9 +219,6 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     withScrollingVelocity velocity: CGPoint
   ) -> CGPoint {
     
-    // falsify flag
-    isFirstLayout = false
-    
     // check collection not empty and if fast enough to scroll
     guard
       let collectionView = collectionView,
@@ -255,18 +248,27 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     // update visible cell index
     currentVisibleCellIndex = futureCellIndex
     
-    // set attributes to newly focused cell, and modify the one losing its focus.
-    resizeCellsIfNeeded()
+    // invalidate layout to set new attributes.
+    invalidateLayout()
     
     return CGPoint(x: distanceToMove, y: 0)
   }
 }
 
 internal extension UICollectionViewCarouselLayout {
-  /// Resizes and animates the cells according to `visibleItemWidthScaleFactor` and `visibleItemHeightScaleFactor`.
-  /// If both variables are equal to 1, nothing will happen.
+  /// Resizes and animates the cells if any of `focusedItemHeightScaleFactor`, `focusedItemAlphaValue`, `nonFocusedItemsScaleFactor`, `nonFocusedItemsAlphaValue`
+  /// is different of 1, else returns.
   func resizeCellsIfNeeded() {
-    guard let collectionView = collectionView else { return }
+    guard
+      let collectionView = collectionView,
+      focusedItemHeightScaleFactor != 1 ||
+        focusedItemAlphaValue != 1 ||
+        nonFocusedItemsScaleFactor != 1 ||
+        nonFocusedItemsAlphaValue != 1
+      
+      else {
+        return
+    }
     
     collectionView.setNeedsLayout()
     UIView.animate(withDuration: 0.3) { [weak collectionView, weak self] in
