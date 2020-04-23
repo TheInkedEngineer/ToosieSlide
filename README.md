@@ -2,17 +2,17 @@
 <img src="ToosieSlideLogo.png" alt="Toosie Slide Logo" width="400">
 </p>
 
+![Documentation](https://theinkedengineer.github.io/ToosieSlide/docs/1.0.x/badge.svg)
+[![Twitter](https://img.shields.io/twitter/url/https/theinkedgineer.svg?label=TheInkedgineer&style=social)](https://twitter.com/theinkedgineer)
 # ToosieSlide
 
 `ToosieSlide` is a library that offers a custom flow layout that simulates a paginated collection view, with the cell always staying in the middle. In other words, a carousel.
+In addtion `ToosieSlide` supports automatic cell resizing and alpha difference between focused and unfocused cells.
 
-In addition, `ToosieSlide`
+ `ToosieSlide` is fully documented [**here**](https://theinkedengineer.github.io/ToosieSlide/docs/1.0.x/index.html)
+ 
+ Unless you have been living under a rock or born in 2030, `ToosieSlide` gets its name and its logo is inspired by `Drake`'s [**Toosie Slide**](https://www.youtube.com/watch?v=xWggTb45brM)
 
-Future versions will bring more features:
-
-- vertical carousel
-- support for storyboards
-- Custom out of the box layouts to plug and use
 
 ## 1. Requirements and Compatibility
 
@@ -26,7 +26,7 @@ Future versions will bring more features:
 
 Add the following line to your `Podfile`
 
-` pod 'ToosieSlide' ~> '0.1.1' `
+` pod 'ToosieSlide' ~> '1.0.0' `
 
 ### Swift Package Manager
 

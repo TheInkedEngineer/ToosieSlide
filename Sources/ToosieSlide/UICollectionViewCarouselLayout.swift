@@ -74,6 +74,8 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   
   // MARK: - Overridden properties
   
+  /// The `CGSize` of the single item inside the cell.
+  /// It's value should be less or equal to `UIScreen.main.bounds.size.width`.
   open override var itemSize: CGSize {
     get { super.itemSize }
     set {
@@ -85,6 +87,8 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     }
   }
   
+  /// The `UICollectionView.ScrollDirection` of the collection.
+  /// This value, defaults to `.horizontal` and should **NOT** be changed.
   open override var scrollDirection: UICollectionView.ScrollDirection {
     get { super.scrollDirection }
     set {
@@ -95,16 +99,19 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   
   // MARK: - Init
   
+  /// Initializes the flow layout with a `.horizontal` scroll direction.
   public override init() {
     super.init()
     scrollDirection = .horizontal
   }
   
+  /// Initializes the flow layout with a `.horizontal` scroll direction, and sets the `itemSize` of the single element.
   public convenience init(itemSize: CGSize) {
     self.init()
     self.itemSize = itemSize
   }
   
+  /// Initializes the flow layout with a `.horizontal` scroll direction using the `NSCoder`.
   required public init?(coder: NSCoder) {
     super.init(coder: coder)
     scrollDirection = .horizontal
@@ -124,11 +131,26 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   
   // MARK: - Overridden Methods
   
+  /// Invalidates the current layout and triggers a layout update.
+  ///
+  /// You can call this method at any time to update the layout information.
+  /// This method invalidates the layout of the collection view itself and returns right away.
+  /// Thus, you can call this method multiple times from the same block of code without triggering multiple layout updates.
+  /// The actual layout update occurs during the next view layout update cycle.
+  /// If you override this method, you must call super at some point in your implementation.
   open override func invalidateLayout() {
     super.invalidateLayout()
     updateSectionInsets()
   }
   
+  /// Returns the layout attributes for all of the cells and views in the specified rectangle.
+  ///
+  /// Subclasses must override this method and use it to return layout information for all items whose view intersects the specified rectangle.
+  /// Your implementation should return attributes for all visual elements, including cells, supplementary views, and decoration views.
+  /// When creating the layout attributes, always create an attributes object that represents the correct element type (cell, supplementary, or decoration).
+  /// The collection view differentiates between attributes for each type and uses that information to make decisions about which views to create and how to manage them.
+  /// - Parameter rect: The rectangle (specified in the collection view’s coordinate system) containing the target views.
+  /// - Returns: An array of UICollectionViewLayoutAttributes objects representing the layout information for the cells and views. The default implementation returns nil.
   open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
     // unwrap super's attributes
     guard let superArray = super.layoutAttributesForElements(in: rect) else { return nil }
@@ -156,6 +178,14 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     return attributes
   }
   
+  
+  /// Asks the layout object if the new bounds require a layout update.
+  ///
+  /// The default implementation of this method returns false.
+  /// Subclasses can override it and return an appropriate value based on whether changes in the bounds of the collection view require changes to the layout of cells and supplementary views.
+  /// If the bounds of the collection view change and this method returns true, the collection view invalidates the layout by calling the invalidateLayout(with:) method.
+  /// - Parameter newBounds: The new bounds of the collection view.
+  /// - Returns: true if the collection view requires a layout update or false if the layout does not need to change.
   open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
     // Since `invalidateLayout()` is not called every time the collection view `.bounds` changes, just listen
     // and invalidate layout by caching the collection view size. `layoutAttributesForElements(in rect: CGRect)` is called
@@ -167,6 +197,17 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     return false
   }
   
+  
+  /// Returns the point at which to stop scrolling.
+  ///
+  /// If you want the scrolling behavior to snap to specific boundaries, you can override this method and use it to change the point at which to stop.
+  /// For example, you might use this method to always stop scrolling on a boundary between items, as opposed to stopping in the middle of an item.
+  /// If you override this method, you should call super which would return the expected point where to scroll to have the next centered cell.
+  /// - Parameters:
+  ///   - proposedContentOffset: The proposed point (in the collection view’s content view) at which to stop scrolling.
+  ///   This is the value at which scrolling would naturally stop if no adjustments were made. The point reflects the upper-left corner of the visible content.
+  ///   - velocity: The current scrolling velocity along both the horizontal and vertical axes. This value is measured in points per second.
+  /// - Returns: The point where to stop in order to have the next cell centralised.
   open override func targetContentOffset(
     forProposedContentOffset proposedContentOffset: CGPoint,
     withScrollingVelocity velocity: CGPoint
