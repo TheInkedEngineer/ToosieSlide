@@ -178,7 +178,6 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     return attributes
   }
   
-  
   /// Asks the layout object if the new bounds require a layout update.
   ///
   /// The default implementation of this method returns false.
@@ -197,6 +196,17 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     return false
   }
   
+  /// Updates the current layout if collection view size have changed.
+  ///
+  /// This is needed, because for some weird iOS reason, when subclassing a `UICollectionView`,
+  /// `func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool` is never called.
+  /// If this class is overridden, super should be called.
+  open override func prepare() {
+    if latestKnownCollectionViewSize != collectionView?.bounds.size {
+      latestKnownCollectionViewSize = collectionView?.bounds.size
+      invalidateLayout()
+    }
+  }
   
   /// Returns the point at which to stop scrolling.
   ///
@@ -259,7 +269,7 @@ internal extension UICollectionViewCarouselLayout {
     guard let collectionView = collectionView else { return }
     
     collectionView.setNeedsLayout()
-    UIView.animate(withDuration: 0.3) { [weak collectionView, weak self] in
+    UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: { [weak collectionView, weak self] in
       guard let self = self else { return }
       
       let previousCell = collectionView?.cellForItem(at: self.currentVisibleCellIndex - 1)
@@ -277,6 +287,6 @@ internal extension UICollectionViewCarouselLayout {
       nextCell?.alpha = self.nonFocusedItemsAlphaValue
       
       collectionView?.layoutIfNeeded()
-    }
+    }, completion: nil)
   }
 }
