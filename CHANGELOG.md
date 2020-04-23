@@ -7,6 +7,10 @@ All relative changes will be documented in this file. \
 ## 1.0.x
 ### April 23, 2020
 
+#### 1.0.1
+* Fix a bug where when `UICollectionView` is subclassed, layout invalidation did not work properly.
+
+#### 1.0.0
 * First major release
 * Add support for automatic cell resize
 * Add support to cell alpha change when not focused anymore.

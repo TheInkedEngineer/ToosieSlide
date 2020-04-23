@@ -1,68 +1,6 @@
 {
   "warnings": [
-    {
-      "file": "/Users/TheInkedEngineer/Code/TheInkedEngineer/ToosieSlide/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift",
-      "line": 77,
-      "symbol": "UICollectionViewCarouselLayout.itemSize",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/TheInkedEngineer/Code/TheInkedEngineer/ToosieSlide/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift",
-      "line": 88,
-      "symbol": "UICollectionViewCarouselLayout.scrollDirection",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/TheInkedEngineer/Code/TheInkedEngineer/ToosieSlide/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift",
-      "line": 98,
-      "symbol": "UICollectionViewCarouselLayout.init()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/TheInkedEngineer/Code/TheInkedEngineer/ToosieSlide/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift",
-      "line": 103,
-      "symbol": "UICollectionViewCarouselLayout.init(itemSize:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/TheInkedEngineer/Code/TheInkedEngineer/ToosieSlide/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift",
-      "line": 108,
-      "symbol": "UICollectionViewCarouselLayout.init(coder:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/TheInkedEngineer/Code/TheInkedEngineer/ToosieSlide/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift",
-      "line": 127,
-      "symbol": "UICollectionViewCarouselLayout.invalidateLayout()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/TheInkedEngineer/Code/TheInkedEngineer/ToosieSlide/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift",
-      "line": 132,
-      "symbol": "UICollectionViewCarouselLayout.layoutAttributesForElements(in:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/TheInkedEngineer/Code/TheInkedEngineer/ToosieSlide/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift",
-      "line": 159,
-      "symbol": "UICollectionViewCarouselLayout.shouldInvalidateLayout(forBoundsChange:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/TheInkedEngineer/Code/TheInkedEngineer/ToosieSlide/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift",
-      "line": 170,
-      "symbol": "UICollectionViewCarouselLayout.targetContentOffset(forProposedContentOffset:withScrollingVelocity:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    }
+
   ],
   "source_directory": "/Users/TheInkedEngineer/Code/TheInkedEngineer/ToosieSlide"
 }

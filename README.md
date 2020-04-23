@@ -12,7 +12,10 @@ In addtion `ToosieSlide` supports automatic cell resizing and alpha difference b
  `ToosieSlide` is fully documented [**here**](https://theinkedengineer.github.io/ToosieSlide/docs/1.0.x/index.html)
  
  Unless you have been living under a rock or born in 2030, `ToosieSlide` gets its name and its logo is inspired by `Drake`'s [**Toosie Slide**](https://www.youtube.com/watch?v=xWggTb45brM)
-
+ 
+ Here is what it looks like:
+ 
+ <img src="ToosieSlideDemo.gif" alt="Toosie Slide Demo" height="300">
 
 ## 1. Requirements and Compatibility
 
@@ -26,7 +29,7 @@ In addtion `ToosieSlide` supports automatic cell resizing and alpha difference b
 
 Add the following line to your `Podfile`
 
-` pod 'ToosieSlide' ~> '1.0.0' `
+` pod 'ToosieSlide', '~> 1.0'`
 
 ### Swift Package Manager
 
@@ -63,7 +66,12 @@ carouselfFlow.nonFocusedItemsScaleFactor = 0.5
 carouselfFlow.nonFocusedItemsAlphaValue = 0.7
 ```
 
-## 4. Contribution
+
+## 4. Roadmap
+
+- support continuous swiping
+
+## 5. Contribution
 
 **Working on your first Pull Request?** You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
 

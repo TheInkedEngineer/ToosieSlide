@@ -14,7 +14,7 @@
     <a title="UICollectionViewCarouselLayout Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">ToosieSlide 1.0.0 Docs</a> (100% documented)</p>
+        <p><a href="../index.html">ToosieSlide 1.0.1 Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/TheInkedEngineer/"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -644,7 +644,41 @@ If the bounds of the collection view change and this method returns true, the co
                         <p>true if the collection view requires a layout update or false if the layout does not need to change.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L189-L198">Show on GitHub</a>
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L188-L197">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(im)prepareLayout"></a>
+                    <a name="//apple_ref/swift/Method/prepare()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(im)prepareLayout">prepare()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Updates the current layout if collection view size have changed.</p>
+
+<p>This is needed, because for some weird iOS reason, when subclassing a <code>UICollectionView</code>,
+<code>func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -&gt; Bool</code> is never called.
+If this class is overridden, super should be called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">prepare</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L204-L209">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -664,7 +698,7 @@ If the bounds of the collection view change and this method returns true, the co
                       <div class="abstract">
                         <p>Returns the point at which to stop scrolling.</p>
 
-<p>If you want the scrolling behavior to snap to specific boundaries, you can override this method and use it to change the point at which to stop.
+<p>If you want the scrolling behaviour to snap to specific boundaries, you can override this method and use it to change the point at which to stop.
 For example, you might use this method to always stop scrolling on a boundary between items, as opposed to stopping in the middle of an item.
 If you override this method, you should call super which would return the expected point where to scroll to have the next centered cell.</p>
 
@@ -717,7 +751,7 @@ This is the value at which scrolling would naturally stop if no adjustments were
                         <p>The point where to stop in order to have the next cell centralised.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L211-L252">Show on GitHub</a>
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L221-L262">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
