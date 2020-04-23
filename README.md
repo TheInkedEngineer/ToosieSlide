@@ -1,8 +1,12 @@
+<p align="center">
+<img src="ToosieSlideLogo.png" alt="Toosie Slide Logo" width="400">
+</p>
+
 # ToosieSlide
 
-`ToosieSlide` is a library that offers a custom flow that simulates a paginated collection view, with the cell always staying in the middle.
+`ToosieSlide` is a library that offers a custom flow layout that simulates a paginated collection view, with the cell always staying in the middle. In other words, a carousel.
 
-This still at early stages of development and currently support the horizontal carousel layout, done via code.
+In addition, `ToosieSlide`
 
 Future versions will bring more features:
 
@@ -10,25 +14,32 @@ Future versions will bring more features:
 - support for storyboards
 - Custom out of the box layouts to plug and use
 
-# 1. Requirements and Compatibility
+## 1. Requirements and Compatibility
 
-| Swift               | ToosieSlide     |  iOS     |
-|-----------------|----------------|---------|
-|       5.1+          | 0.1.x               |  10+     |
+- iOS 10+
+- XCode 11
+- Swift 5.1+
 
-# 2. Installation
+## 2. Installation
 
-## Cocoapods
+### Cocoapods
 
-Add the following line to your Podfile
+Add the following line to your `Podfile`
+
 ` pod 'ToosieSlide' ~> '0.1.1' `
 
-# 3. Documentation
+### Swift Package Manager
 
-`ToosieSlide` is fully documented. 
-A documentation file will be generated with the release of 1.0.0
+Add the following to you `Package.swift`
 
-# 4. Code Example
+```
+dependencies: [
+    .package(url: "https://github.com/TheInkedEngineer/ToosieSlide.git", .upToNextMajor(from: "1.0.0"))
+]
+```
+## 3. Code Example
+
+### Using `UICollectionViewCarouselLayout`
 
 ```swift
 lazy var collection: UICollectionView = {
@@ -41,7 +52,18 @@ lazy var collection: UICollectionView = {
 }()
 ```
 
-# 5. Contribution
+### Customizing `UICollectionViewCarouselLayout`
+
+```swift
+let carouselFlow = UICollectionViewCarouselLayout()
+carouselfFlow.lowestVelocitySensitivity = 0.3
+carouselfFlow.focusedItemHeightScaleFactor = 1.1
+carouselfFlow.focusedItemAlphaValue = 1
+carouselfFlow.nonFocusedItemsScaleFactor = 0.5
+carouselfFlow.nonFocusedItemsAlphaValue = 0.7
+```
+
+## 4. Contribution
 
 **Working on your first Pull Request?** You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
 
