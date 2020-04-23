@@ -7,6 +7,13 @@ import UIKit
 /// A type alias to simulate the idea of a cell index.
 public typealias CellIndex = Int
 
+/// A Custom `UICollectionViewFlowLayout` that simulates a carousel. That is a paginated collection view, with the focused item only in the center of the collection.
+/// In addition `UICollectionViewCarouselLayout` offers the possibility to resize the non focused cells and change their alpha while scrolling.
+///
+/// For the proper functioning of `UICollectionViewCarouselLayout` you are required to set the item size, either using the convenience `init(itemSize: CGSize)`
+/// or by manually calling `layout.itemSize` and setting its value.
+/// Using `func collectionView(_: UICollectionView, layout: UICollectionViewLayout, sizeForItemAt: IndexPath) -> CGSize` will not work
+/// Because a concrete fixed item size is needed to be able to calculate the various insets.
 open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   
   // MARK: - Properties
@@ -17,7 +24,7 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   public var lowestVelocitySensitivity: CGFloat = 0.2
   
   /// The cell currently being displayed for the user.
-  public var currentVisibleCellIndex: CellIndex = 0 {
+  public internal(set) var currentVisibleCellIndex: CellIndex = 0 {
     willSet {
       guard let collection = collectionView, newValue != currentVisibleCellIndex else { return }
       (collectionView?.delegate as? UICollectionViewDelegateCarouselLayout)?.collectionView(collection, willDisplayCellAt: newValue)
@@ -91,6 +98,11 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   public override init() {
     super.init()
     scrollDirection = .horizontal
+  }
+  
+  public convenience init(itemSize: CGSize) {
+    self.init()
+    self.itemSize = itemSize
   }
   
   required public init?(coder: NSCoder) {
