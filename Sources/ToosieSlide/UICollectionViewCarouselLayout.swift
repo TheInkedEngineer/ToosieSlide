@@ -50,6 +50,14 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     CGFloat(currentVisibleCellIndex) * (itemSize.width + minimumLineSpacing)
   }
   
+  /// The latest known CV size, it is useful to understand when collection view size has changed but no `invalidateLayout()` is automatically
+  /// called by iOS.
+  private var latestKnownCollectionViewSize: CGSize?
+  
+  /// A flag needed to force the resize of the first cell, if needed, when first layouting.
+  /// This is set to `false` after first scroll.
+  private var isFirstLayout: Bool = true
+ 
   /// The space between the cell and the collection view horizontal edge. If no collection view is yet available, it just returns `.zero`.
   /// This is calculated and set as the inset of the collection view to ensure always a single row of cells that are always centered.
   private var horizontalSpacingFromCollectionViewEdge: CGFloat {
@@ -63,14 +71,6 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     guard let collectionView = collectionView, collectionView.bounds.height > 0 else { return .zero }
     return (collectionView.bounds.height - itemSize.height) / 2
   }
-  
-  /// The latest known CV size, it is useful to understand when collection view size has changed but no `invalidateLayout()` is automatically
-  /// called by iOS.
-  private var latestKnownCollectionViewSize: CGSize?
-  
-  /// A flag needed to force the resize of the first cell, if needed, when first layouting.
-  /// This is set to `false` after first scroll.
-  private var isFirstLayout: Bool = true
   
   // MARK: - Overridden properties
   
@@ -210,7 +210,7 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   
   /// Returns the point at which to stop scrolling.
   ///
-  /// If you want the scrolling behavior to snap to specific boundaries, you can override this method and use it to change the point at which to stop.
+  /// If you want the scrolling behaviour to snap to specific boundaries, you can override this method and use it to change the point at which to stop.
   /// For example, you might use this method to always stop scrolling on a boundary between items, as opposed to stopping in the middle of an item.
   /// If you override this method, you should call super which would return the expected point where to scroll to have the next centered cell.
   /// - Parameters:
@@ -233,7 +233,7 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
       abs(velocity.x) > lowestVelocitySensitivity
       
       else {
-      return CGPoint(x: currentOffset, y: 0)
+        return CGPoint(x: currentOffset, y: 0)
     }
     
     let futureCellIndex = velocity.x > 0 ?
@@ -269,7 +269,7 @@ internal extension UICollectionViewCarouselLayout {
     guard let collectionView = collectionView else { return }
     
     collectionView.setNeedsLayout()
-    UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: { [weak collectionView, weak self] in
+    UIView.animate(withDuration: 0.3) { [weak collectionView, weak self] in
       guard let self = self else { return }
       
       let previousCell = collectionView?.cellForItem(at: self.currentVisibleCellIndex - 1)
@@ -287,6 +287,6 @@ internal extension UICollectionViewCarouselLayout {
       nextCell?.alpha = self.nonFocusedItemsAlphaValue
       
       collectionView?.layoutIfNeeded()
-    }, completion: nil)
+    }
   }
 }
