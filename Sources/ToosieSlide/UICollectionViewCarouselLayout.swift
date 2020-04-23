@@ -13,6 +13,7 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   
   /// The lowest absolute velocity that should invoke a change of cells.
   /// If the absolute velocity of the swipe is lower than this variable, the central cell does not change.
+  /// Defaults to `0.2`.
   public var lowestVelocitySensitivity: CGFloat = 0.2
   
   /// The cell currently being displayed for the user.
@@ -22,6 +23,20 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
       (collectionView?.delegate as? UICollectionViewDelegateCarouselLayout)?.collectionView(collection, willDisplayCellAt: newValue)
     }
   }
+  
+  /// The scale factor to apply to the focused cell's height. Defaults to `1.0`.
+  /// The height of the item will be multiplied by this value, so a value lower than 1 will make it smaller, greater than 1 will make it bigger.
+  public var focusedItemHeightScaleFactor: CGFloat = 1 { didSet { invalidateLayout() } }
+  
+  /// The alpha value of the lone focused cell. This defaults to `1.0`.
+  public var focusedItemAlphaValue: CGFloat = 1 { didSet { invalidateLayout() } }
+  
+  /// The scale factor to apply to the non focused cells' height. Defaults to `0.8`.
+  /// The height of the item will be multiplied by this value, so a value lower than 1 will make it smaller, greater than 1 will make it bigger.
+  public var nonFocusedItemsScaleFactor: CGFloat = 0.8 { didSet { invalidateLayout() } }
+  
+  /// The alpha value of the non focused cells. This defaults to `0.5`.
+  public var nonFocusedItemsAlphaValue: CGFloat = 0.5 { didSet { invalidateLayout() } }
   
   /// The current content offset of the visible cell from the section inset..
   public var currentOffset: CGFloat {
@@ -45,6 +60,10 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   /// The latest known CV size, it is useful to understand when collection view size has changed but no `invalidateLayout()` is automatically
   /// called by iOS.
   private var latestKnownCollectionViewSize: CGSize?
+  
+  /// A flag needed to force the resize of the first cell, if needed, when first layouting.
+  /// This is set to `false` after first scroll.
+  private var isFirstLayout: Bool = true
   
   // MARK: - Overridden properties
   
@@ -72,13 +91,11 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   public override init() {
     super.init()
     scrollDirection = .horizontal
-    currentVisibleCellIndex = 0
   }
   
   required public init?(coder: NSCoder) {
     super.init(coder: coder)
     scrollDirection = .horizontal
-    currentVisibleCellIndex = 0
   }
   
   // MARK: - Methods
@@ -99,11 +116,38 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     super.invalidateLayout()
     updateSectionInsets()
   }
-
+  
+  open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    // unwrap super's attributes
+    guard let superArray = super.layoutAttributesForElements(in: rect) else { return nil }
+    // deep copy items. A shallow copy is not enough since it will lead to inconsistencies in the cache.
+    guard let attributes = NSArray(array: superArray, copyItems: true) as? [UICollectionViewLayoutAttributes] else { return superArray }
+    
+    attributes.enumerated().forEach { index, element in
+      // if first layout, apply focus attributes to first element.
+      if isFirstLayout && element.indexPath.row == 0 {
+        attributes[index].bounds.size.height = itemSize.height * focusedItemHeightScaleFactor
+        attributes[index].alpha = focusedItemAlphaValue
+        return
+      }
+      
+      // set all non focused attributes, because when element is set to focused his attributes will be updated in
+      // func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint
+      attributes[index].bounds.size.height = itemSize.height * nonFocusedItemsScaleFactor
+      attributes[index].alpha = nonFocusedItemsAlphaValue
+    }
+    
+    // to make sure the current cell is always properly attributed.
+    // in case at any point this is called
+    // after func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint
+    resizeCellsIfNeeded()
+    return attributes
+  }
+  
   open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-    /// Since `invalidateLayout()` is not called every time the collection view `.bounds` changes, just listen
-    /// and invalidate layout by caching the collection view size. `layoutAttributesForElements(in rect: CGRect)` is called
-    /// every time the collection view doesn't know/isn't "sure" about where to place cells. It is called upon rotation as well.
+    // Since `invalidateLayout()` is not called every time the collection view `.bounds` changes, just listen
+    // and invalidate layout by caching the collection view size. `layoutAttributesForElements(in rect: CGRect)` is called
+    // every time the collection view doesn't know/isn't "sure" about where to place cells. It is called upon rotation as well.
     if latestKnownCollectionViewSize != collectionView?.bounds.size {
       latestKnownCollectionViewSize = collectionView?.bounds.size
       return true
@@ -115,14 +159,23 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     forProposedContentOffset proposedContentOffset: CGPoint,
     withScrollingVelocity velocity: CGPoint
   ) -> CGPoint {
+    
+    // falsify flag
+    isFirstLayout = false
+    
     // check collection not empty and if fast enough to scroll
-    guard let collectionView = collectionView, collectionView.numberOfItems(inSection: 0) > 0, abs(velocity.x) > lowestVelocitySensitivity else {
+    guard
+      let collectionView = collectionView,
+      collectionView.numberOfItems(inSection: 0) > 0,
+      abs(velocity.x) > lowestVelocitySensitivity
+      
+      else {
       return CGPoint(x: currentOffset, y: 0)
     }
     
     let futureCellIndex = velocity.x > 0 ?
-    min(currentVisibleCellIndex + 1, collectionView.numberOfItems(inSection: 0) - 1) :
-    max(0, currentVisibleCellIndex - 1)
+      min(currentVisibleCellIndex + 1, collectionView.numberOfItems(inSection: 0) - 1) :
+      max(0, currentVisibleCellIndex - 1)
     
     if let delegate = (collectionView.delegate as? UICollectionViewDelegateCarouselLayout) {
       // defaults to true, check if another implementation forces it to not show.
@@ -139,6 +192,38 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     // update visible cell index
     currentVisibleCellIndex = futureCellIndex
     
+    // set attributes to newly focused cell, and modify the one losing its focus.
+    resizeCellsIfNeeded()
+    
     return CGPoint(x: distanceToMove, y: 0)
+  }
+}
+
+internal extension UICollectionViewCarouselLayout {
+  /// Resizes and animates the cells according to `visibleItemWidthScaleFactor` and `visibleItemHeightScaleFactor`.
+  /// If both variables are equal to 1, nothing will happen.
+  func resizeCellsIfNeeded() {
+    guard let collectionView = collectionView else { return }
+    
+    collectionView.setNeedsLayout()
+    UIView.animate(withDuration: 0.3) { [weak collectionView, weak self] in
+      guard let self = self else { return }
+      
+      let previousCell = collectionView?.cellForItem(at: self.currentVisibleCellIndex - 1)
+      let currentCell = collectionView?.cellForItem(at: self.currentVisibleCellIndex)
+      let nextCell = collectionView?.cellForItem(at: self.currentVisibleCellIndex + 1)
+      
+      // resize
+      previousCell?.bounds.size.height = self.itemSize.height * self.nonFocusedItemsScaleFactor
+      currentCell?.bounds.size.height = self.itemSize.height * self.focusedItemHeightScaleFactor
+      nextCell?.bounds.size.height = self.itemSize.height * self.nonFocusedItemsScaleFactor
+      
+      // update alpha
+      previousCell?.alpha = self.nonFocusedItemsAlphaValue
+      currentCell?.alpha = self.focusedItemAlphaValue
+      nextCell?.alpha = self.nonFocusedItemsAlphaValue
+      
+      collectionView?.layoutIfNeeded()
+    }
   }
 }
