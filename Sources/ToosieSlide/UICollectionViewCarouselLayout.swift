@@ -34,7 +34,7 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   
   /// The scale factor to apply to the focused cell's height. Defaults to `1.0`.
   /// The height of the item will be multiplied by this value, so a value lower than 1 will make it smaller, greater than 1 will make it bigger.
-  public var focusedItemHeightScaleFactor: CGFloat = 1 { didSet { invalidateLayout() } }
+  public var focusedItemScaleFactor: CGFloat = 1 { didSet { invalidateLayout() } }
   
   /// The alpha value of the lone focused cell. This defaults to `1.0`.
   public var focusedItemAlphaValue: CGFloat = 1 { didSet { invalidateLayout() } }
@@ -45,6 +45,16 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   
   /// The alpha value of the non focused cells. This defaults to `0.5`.
   public var nonFocusedItemsAlphaValue: CGFloat = 0.5 { didSet { invalidateLayout() } }
+  
+  /// The affine transform applied to focused items.
+  private var focusedItemAffineTransform: CGAffineTransform {
+    CGAffineTransform(scaleX: focusedItemScaleFactor, y: focusedItemScaleFactor)
+  }
+  
+  /// The affine transform applied to unfocused items.
+  private var nonFocusedItemAffineTransform: CGAffineTransform {
+    CGAffineTransform(scaleX: nonFocusedItemsScaleFactor, y: nonFocusedItemsScaleFactor)
+  }
   
   /// The current content offset of the visible cell from the section inset..
   public var currentOffset: CGFloat {
@@ -157,14 +167,14 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     attributes.enumerated().forEach { index, element in
       // if first layout, apply focus attributes to first element.
       if element.indexPath.row == currentVisibleCellIndex {
-        attributes[index].bounds.size.height = itemSize.height * focusedItemHeightScaleFactor
+        attributes[index].transform = self.focusedItemAffineTransform
         attributes[index].alpha = focusedItemAlphaValue
         return
       }
       
       // set all non focused attributes, because when element is set to focused his attributes will be updated in
       // func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint
-      attributes[index].bounds.size.height = itemSize.height * nonFocusedItemsScaleFactor
+      attributes[index].transform = self.nonFocusedItemAffineTransform
       attributes[index].alpha = nonFocusedItemsAlphaValue
     }
     
@@ -263,11 +273,10 @@ internal extension UICollectionViewCarouselLayout {
   func resizeCellsIfNeeded() {
     guard
       let collectionView = collectionView,
-      focusedItemHeightScaleFactor != 1 ||
+        focusedItemScaleFactor != 1 ||
         focusedItemAlphaValue != 1 ||
         nonFocusedItemsScaleFactor != 1 ||
         nonFocusedItemsAlphaValue != 1
-      
       else {
         return
     }
@@ -281,9 +290,9 @@ internal extension UICollectionViewCarouselLayout {
       let nextCell = collectionView?.cellForItem(at: self.currentVisibleCellIndex + 1)
       
       // resize
-      previousCell?.bounds.size.height = self.itemSize.height * self.nonFocusedItemsScaleFactor
-      currentCell?.bounds.size.height = self.itemSize.height * self.focusedItemHeightScaleFactor
-      nextCell?.bounds.size.height = self.itemSize.height * self.nonFocusedItemsScaleFactor
+      previousCell?.transform = self.nonFocusedItemAffineTransform
+      nextCell?.transform = self.nonFocusedItemAffineTransform
+      currentCell?.transform = self.focusedItemAffineTransform
       
       // update alpha
       previousCell?.alpha = self.nonFocusedItemsAlphaValue
