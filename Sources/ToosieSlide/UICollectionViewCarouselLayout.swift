@@ -39,8 +39,8 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
   /// The alpha value of the lone focused cell. This defaults to `1.0`.
   public var focusedItemAlphaValue: CGFloat = 1 { didSet { invalidateLayout() } }
   
-  /// The scale factor to apply to the non focused cells' height. Defaults to `0.8`.
-  /// The height of the item will be multiplied by this value, so a value lower than 1 will make it smaller, greater than 1 will make it bigger.
+  /// The scale factor to apply to the non focused cells' size. Defaults to `0.8`.
+  /// The size of the item will be multiplied by this value, so a value lower than 1 will make it smaller, greater than 1 will make it bigger.
   public var nonFocusedItemsScaleFactor: CGFloat = 0.8 { didSet { invalidateLayout() } }
   
   /// The alpha value of the non focused cells. This defaults to `0.5`.
@@ -267,7 +267,7 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
 }
 
 internal extension UICollectionViewCarouselLayout {
-  /// Resizes and animates the cells if any of `focusedItemHeightScaleFactor`, `focusedItemAlphaValue`,
+  /// Resizes and animates the cells if any of `focusedItemScaleFactor`, `focusedItemAlphaValue`,
   /// `nonFocusedItemsScaleFactor`, `nonFocusedItemsAlphaValue`
   /// is different of 1, else returns.
   func resizeCellsIfNeeded() {
