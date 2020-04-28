@@ -32,8 +32,8 @@ open class UICollectionViewCarouselLayout: UICollectionViewFlowLayout {
     }
   }
   
-  /// The scale factor to apply to the focused cell's height. Defaults to `1.0`.
-  /// The height of the item will be multiplied by this value, so a value lower than 1 will make it smaller, greater than 1 will make it bigger.
+  /// The scale factor to apply to the focused cell' size. Defaults to `1.0`.
+  /// The size of the item will be multiplied by this value, so a value lower than 1 will make it smaller, greater than 1 will make it bigger.
   public var focusedItemScaleFactor: CGFloat = 1 { didSet { invalidateLayout() } }
   
   /// The alpha value of the lone focused cell. This defaults to `1.0`.
