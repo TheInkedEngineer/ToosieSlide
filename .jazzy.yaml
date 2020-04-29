@@ -5,6 +5,6 @@ readme: README.md
 module: ToosieSlide
 github_url: https://github.com/TheInkedEngineer/
 github_file_prefix: https://github.com/TheInkedEngineer/blob/master
-module_version: 1.0.1
+module_version: 1.1.0
 xcodebuild_arguments: [clean,build,-scheme,ToosieSlide]
-output: docs/1.0.x
+output: docs/1.1.x
