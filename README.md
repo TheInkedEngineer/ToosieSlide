@@ -2,14 +2,14 @@
 <img src="ToosieSlideLogo.png" alt="Toosie Slide Logo" width="400">
 </p>
 
-![Documentation](https://theinkedengineer.github.io/ToosieSlide/docs/1.0.x/badge.svg)
+![Documentation](https://theinkedengineer.github.io/ToosieSlide/docs/1.1.x/badge.svg)
 [![Twitter](https://img.shields.io/twitter/url/https/theinkedgineer.svg?label=TheInkedgineer&style=social)](https://twitter.com/theinkedgineer)
 # ToosieSlide
 
 `ToosieSlide` is a library that offers a custom flow layout that simulates a paginated collection view, with the cell always staying in the middle. In other words, a carousel.
 In addtion `ToosieSlide` supports automatic cell resizing and alpha difference between focused and unfocused cells.
 
- `ToosieSlide` is fully documented [**here**](https://theinkedengineer.github.io/ToosieSlide/docs/1.0.x/index.html)
+ `ToosieSlide` is fully documented [**here**](https://theinkedengineer.github.io/ToosieSlide/docs/1.1.x/index.html)
  
  Unless you have been living under a rock or born in 2030, `ToosieSlide` gets its name and its logo is inspired by `Drake`'s [**Toosie Slide**](https://www.youtube.com/watch?v=xWggTb45brM)
  
@@ -48,7 +48,7 @@ dependencies: [
 lazy var collection: UICollectionView = {
   let carouselFlow = UICollectionViewCarouselLayout()
   carouselFlow.itemSize = CGSize(width: DemoCell.width, height: DemoCell.height)
-  carouselFlow.minimumLineSpacing = 50
+  carouselFlow.minimumLineSpacing = 10
   let collection = UICollectionView(collectionViewCarouselLayout: carouselFlow)
   collection.register(DemoCell.self, forCellWithReuseIdentifier: DemoCell.identifier)
   return collection
@@ -60,7 +60,7 @@ lazy var collection: UICollectionView = {
 ```swift
 let carouselFlow = UICollectionViewCarouselLayout()
 carouselfFlow.lowestVelocitySensitivity = 0.3
-carouselfFlow.focusedItemHeightScaleFactor = 1.1
+carouselfFlow.focusedItemScaleFactor = 1
 carouselfFlow.focusedItemAlphaValue = 1
 carouselfFlow.nonFocusedItemsScaleFactor = 0.5
 carouselfFlow.nonFocusedItemsAlphaValue = 0.7

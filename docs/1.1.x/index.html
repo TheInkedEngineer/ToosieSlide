@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ToosieSlide  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="ToosieSlide  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">ToosieSlide 1.1.0 Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/TheInkedEngineer/"><img src="img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">ToosieSlide Reference</a>
+        <img id="carat" src="img/carat.png" />
+        ToosieSlide  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/UICollectionViewCarouselLayout.html">UICollectionViewCarouselLayout</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/UICollectionView.html">UICollectionView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/UICollectionViewDelegateCarouselLayout.html">UICollectionViewDelegateCarouselLayout</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:11ToosieSlide9CellIndexa">CellIndex</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <p align="center">
+<img src="ToosieSlideLogo.png" alt="Toosie Slide Logo" width="400">
+</p>
+
+<p><img src="https://theinkedengineer.github.io/ToosieSlide/docs/1.0.x/badge.svg" alt="Documentation">
+<a href="https://twitter.com/theinkedgineer"><img src="https://img.shields.io/twitter/url/https/theinkedgineer.svg?label=TheInkedgineer&style=social" alt="Twitter"></a></p>
+<h1 id='toosieslide' class='heading'>ToosieSlide</h1>
+
+<p><code>ToosieSlide</code> is a library that offers a custom flow layout that simulates a paginated collection view, with the cell always staying in the middle. In other words, a carousel.
+In addtion <code>ToosieSlide</code> supports automatic cell resizing and alpha difference between focused and unfocused cells.</p>
+
+<p><code>ToosieSlide</code> is fully documented <a href="https://theinkedengineer.github.io/ToosieSlide/docs/1.1.x/index.html"><strong>here</strong></a></p>
+
+<p>Unless you have been living under a rock or born in 2030, <code>ToosieSlide</code> gets its name and its logo is inspired by <code>Drake</code>&lsquo;s <a href="https://www.youtube.com/watch?v=xWggTb45brM"><strong>Toosie Slide</strong></a></p>
+
+<p>Here is what it looks like:</p>
+
+<p><img src="ToosieSlideDemo.gif" alt="Toosie Slide Demo" height="300"></p>
+<h2 id='1-requirements-and-compatibility' class='heading'>1. Requirements and Compatibility</h2>
+
+<ul>
+<li>iOS 10+</li>
+<li>XCode 11</li>
+<li>Swift 5.1+</li>
+</ul>
+<h2 id='2-installation' class='heading'>2. Installation</h2>
+<h3 id='cocoapods' class='heading'>Cocoapods</h3>
+
+<p>Add the following line to your <code>Podfile</code></p>
+
+<p><code>pod &#39;ToosieSlide&#39;, &#39;~&gt; 1.0&#39;</code></p>
+<h3 id='swift-package-manager' class='heading'>Swift Package Manager</h3>
+
+<p>Add the following to you <code>Package.swift</code></p>
+<pre class="highlight plaintext"><code>dependencies: [
+    .package(url: "https://github.com/TheInkedEngineer/ToosieSlide.git", .upToNextMajor(from: "1.0.0"))
+]
+</code></pre>
+<h2 id='3-code-example' class='heading'>3. Code Example</h2>
+<h3 id='using-code-uicollectionviewcarousellayout-code' class='heading'>Using <code><a href="Classes/UICollectionViewCarouselLayout.html">UICollectionViewCarouselLayout</a></code></h3>
+<pre class="highlight swift"><code><span class="kd">lazy</span> <span class="k">var</span> <span class="nv">collection</span><span class="p">:</span> <span class="kt">UICollectionView</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="k">let</span> <span class="nv">carouselFlow</span> <span class="o">=</span> <span class="kt">UICollectionViewCarouselLayout</span><span class="p">()</span>
+  <span class="n">carouselFlow</span><span class="o">.</span><span class="n">itemSize</span> <span class="o">=</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="kt">DemoCell</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="kt">DemoCell</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+  <span class="n">carouselFlow</span><span class="o">.</span><span class="n">minimumLineSpacing</span> <span class="o">=</span> <span class="mi">10</span>
+  <span class="k">let</span> <span class="nv">collection</span> <span class="o">=</span> <span class="kt">UICollectionView</span><span class="p">(</span><span class="nv">collectionViewCarouselLayout</span><span class="p">:</span> <span class="n">carouselFlow</span><span class="p">)</span>
+  <span class="n">collection</span><span class="o">.</span><span class="nf">register</span><span class="p">(</span><span class="kt">DemoCell</span><span class="o">.</span><span class="k">self</span><span class="p">,</span> <span class="nv">forCellWithReuseIdentifier</span><span class="p">:</span> <span class="kt">DemoCell</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">collection</span>
+<span class="p">}()</span>
+</code></pre>
+<h3 id='customizing-code-uicollectionviewcarousellayout-code' class='heading'>Customizing <code><a href="Classes/UICollectionViewCarouselLayout.html">UICollectionViewCarouselLayout</a></code></h3>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">carouselFlow</span> <span class="o">=</span> <span class="kt">UICollectionViewCarouselLayout</span><span class="p">()</span>
+<span class="n">carouselfFlow</span><span class="o">.</span><span class="n">lowestVelocitySensitivity</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">carouselfFlow</span><span class="o">.</span><span class="n">focusedItemScaleFactor</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">carouselfFlow</span><span class="o">.</span><span class="n">focusedItemAlphaValue</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">carouselfFlow</span><span class="o">.</span><span class="n">nonFocusedItemsScaleFactor</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">carouselfFlow</span><span class="o">.</span><span class="n">nonFocusedItemsAlphaValue</span> <span class="o">=</span> <span class="mf">0.7</span>
+</code></pre>
+<h2 id='4-roadmap' class='heading'>4. Roadmap</h2>
+
+<ul>
+<li>support continuous swiping</li>
+</ul>
+<h2 id='5-contribution' class='heading'>5. Contribution</h2>
+
+<p><strong>Working on your first Pull Request?</strong> You can learn how from this <em>free</em> series <a href="https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github">How to Contribute to an Open Source Project on GitHub</a></p>
+<h2 id='generate-the-project' class='heading'>Generate the project</h2>
+
+<p>To generate this project locally, you need <a href="https://github.com/yonaskolb/XcodeGen">xcodegen</a>. It is a great tool to customize a project and generate it on the go.</p>
+
+<p>You can either install it manually following their steps, or just run my <code>setup.sh</code> script. It automatically installs <a href="https://brew.sh">Homebrew</a> if it is missing, installs <code>xcodegen</code>, removes existing (if present) <code>.xcodeproj</code>, run <code>xcodegen</code> and moves configuratiom files to their appropriate place.</p>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>TheInkedEngineer</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

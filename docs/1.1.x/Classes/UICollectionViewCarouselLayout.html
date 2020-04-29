@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>UICollectionViewCarouselLayout Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/UICollectionViewCarouselLayout" class="dashAnchor"></a>
+    <a title="UICollectionViewCarouselLayout Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">ToosieSlide 1.1.0 Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/TheInkedEngineer/"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">ToosieSlide Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        UICollectionViewCarouselLayout Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/UICollectionViewCarouselLayout.html">UICollectionViewCarouselLayout</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/UICollectionView.html">UICollectionView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/UICollectionViewDelegateCarouselLayout.html">UICollectionViewDelegateCarouselLayout</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:11ToosieSlide9CellIndexa">CellIndex</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>UICollectionViewCarouselLayout</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">UICollectionViewCarouselLayout</span> <span class="p">:</span> <span class="kt">UICollectionViewFlowLayout</span></code></pre>
+
+                </div>
+              </div>
+            <p>A Custom <code>UICollectionViewFlowLayout</code> that simulates a carousel. That is a paginated collection view, with the focused item only in the center of the collection.
+In addition <code>UICollectionViewCarouselLayout</code> offers the possibility to resize the non focused cells and change their alpha while scrolling.
+For the proper functioning of this flow layout, collection view&rsquo;s <code>decelerationRate</code> should be set to fast.</p>
+
+<p>For the proper functioning of <code>UICollectionViewCarouselLayout</code> you are required to set the item size, either using the convenience <code>init(itemSize: CGSize)</code>
+or by manually calling <code>layout.itemSize</code> and setting its value.
+Using <code>func collectionView(_: UICollectionView, layout: UICollectionViewLayout, sizeForItemAt: IndexPath) -&gt; CGSize</code> will not work
+Because a concrete fixed item size is needed to be able to calculate the various insets.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Properties"></a>
+                  <h3 class="section-name"><p>Properties</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11ToosieSlide30UICollectionViewCarouselLayoutC25lowestVelocitySensitivity12CoreGraphics7CGFloatVvp"></a>
+                    <a name="//apple_ref/swift/Property/lowestVelocitySensitivity" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11ToosieSlide30UICollectionViewCarouselLayoutC25lowestVelocitySensitivity12CoreGraphics7CGFloatVvp">lowestVelocitySensitivity</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The lowest absolute velocity that should invoke a change of cells.
+If the absolute velocity of the swipe is lower than this variable, the central cell does not change.
+Defaults to <code>0.2</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">lowestVelocitySensitivity</span><span class="p">:</span> <span class="kt">CGFloat</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L25">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11ToosieSlide30UICollectionViewCarouselLayoutC23currentVisibleCellIndexSivp"></a>
+                    <a name="//apple_ref/swift/Property/currentVisibleCellIndex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11ToosieSlide30UICollectionViewCarouselLayoutC23currentVisibleCellIndexSivp">currentVisibleCellIndex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The cell currently being displayed for the user.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">internal(set)</span> <span class="k">var</span> <span class="nv">currentVisibleCellIndex</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:11ToosieSlide9CellIndexa">CellIndex</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L28-L33">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11ToosieSlide30UICollectionViewCarouselLayoutC22focusedItemScaleFactor12CoreGraphics7CGFloatVvp"></a>
+                    <a name="//apple_ref/swift/Property/focusedItemScaleFactor" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11ToosieSlide30UICollectionViewCarouselLayoutC22focusedItemScaleFactor12CoreGraphics7CGFloatVvp">focusedItemScaleFactor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The scale factor to apply to the focused cell&rsquo; size. Defaults to <code>1.0</code>.
+The size of the item will be multiplied by this value, so a value lower than 1 will make it smaller, greater than 1 will make it bigger.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">focusedItemScaleFactor</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L37">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11ToosieSlide30UICollectionViewCarouselLayoutC21focusedItemAlphaValue12CoreGraphics7CGFloatVvp"></a>
+                    <a name="//apple_ref/swift/Property/focusedItemAlphaValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11ToosieSlide30UICollectionViewCarouselLayoutC21focusedItemAlphaValue12CoreGraphics7CGFloatVvp">focusedItemAlphaValue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The alpha value of the lone focused cell. This defaults to <code>1.0</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">focusedItemAlphaValue</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L40">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11ToosieSlide30UICollectionViewCarouselLayoutC26nonFocusedItemsScaleFactor12CoreGraphics7CGFloatVvp"></a>
+                    <a name="//apple_ref/swift/Property/nonFocusedItemsScaleFactor" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11ToosieSlide30UICollectionViewCarouselLayoutC26nonFocusedItemsScaleFactor12CoreGraphics7CGFloatVvp">nonFocusedItemsScaleFactor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The scale factor to apply to the non focused cells&rsquo; size. Defaults to <code>0.8</code>.
+The size of the item will be multiplied by this value, so a value lower than 1 will make it smaller, greater than 1 will make it bigger.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">nonFocusedItemsScaleFactor</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L44">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11ToosieSlide30UICollectionViewCarouselLayoutC25nonFocusedItemsAlphaValue12CoreGraphics7CGFloatVvp"></a>
+                    <a name="//apple_ref/swift/Property/nonFocusedItemsAlphaValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11ToosieSlide30UICollectionViewCarouselLayoutC25nonFocusedItemsAlphaValue12CoreGraphics7CGFloatVvp">nonFocusedItemsAlphaValue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The alpha value of the non focused cells. This defaults to <code>0.5</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">nonFocusedItemsAlphaValue</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L47">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11ToosieSlide30UICollectionViewCarouselLayoutC13currentOffset12CoreGraphics7CGFloatVvp"></a>
+                    <a name="//apple_ref/swift/Property/currentOffset" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11ToosieSlide30UICollectionViewCarouselLayoutC13currentOffset12CoreGraphics7CGFloatVvp">currentOffset</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The current content offset of the visible cell from the section inset..</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">currentOffset</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L60-L62">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Overridden%20properties"></a>
+                <a name="//apple_ref/swift/Section/Overridden properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Overridden%20properties"></a>
+                  <h3 class="section-name"><p>Overridden properties</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(py)itemSize"></a>
+                    <a name="//apple_ref/swift/Property/itemSize" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(py)itemSize">itemSize</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>CGSize</code> of the single item inside the cell.
+It&rsquo;s value should be less or equal to <code>UIScreen.main.bounds.size.width</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">override</span> <span class="k">var</span> <span class="nv">itemSize</span><span class="p">:</span> <span class="kt">CGSize</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L86-L95">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(py)scrollDirection"></a>
+                    <a name="//apple_ref/swift/Property/scrollDirection" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(py)scrollDirection">scrollDirection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>UICollectionView.ScrollDirection</code> of the collection.
+This value, defaults to <code>.horizontal</code> and should <strong>NOT</strong> be changed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">override</span> <span class="k">var</span> <span class="nv">scrollDirection</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="o">.</span><span class="kt">ScrollDirection</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L99-L105">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Init"></a>
+                <a name="//apple_ref/swift/Section/Init" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Init"></a>
+                  <h3 class="section-name"><p>Init</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(im)init"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(im)init">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes the flow layout with a <code>.horizontal</code> scroll direction.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L110-L113">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11ToosieSlide30UICollectionViewCarouselLayoutC8itemSizeACSo6CGSizeV_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(itemSize:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11ToosieSlide30UICollectionViewCarouselLayoutC8itemSizeACSo6CGSizeV_tcfc">init(itemSize:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes the flow layout with a <code>.horizontal</code> scroll direction, and sets the <code><a href="../Classes/UICollectionViewCarouselLayout.html#/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(py)itemSize">itemSize</a></code> of the single element.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">itemSize</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L116-L119">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(im)initWithCoder:"></a>
+                    <a name="//apple_ref/swift/Method/init(coder:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(im)initWithCoder:">init(coder:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes the flow layout with a <code>.horizontal</code> scroll direction using the <code>NSCoder</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">required</span> <span class="kd">public</span> <span class="nf">init</span><span class="p">?(</span><span class="nv">coder</span><span class="p">:</span> <span class="kt">NSCoder</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L122-L125">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Overridden%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Overridden Methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Overridden%20Methods"></a>
+                  <h3 class="section-name"><p>Overridden Methods</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(im)invalidateLayout"></a>
+                    <a name="//apple_ref/swift/Method/invalidateLayout()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(im)invalidateLayout">invalidateLayout()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Invalidates the current layout and triggers a layout update.</p>
+
+<p>You can call this method at any time to update the layout information.
+This method invalidates the layout of the collection view itself and returns right away.
+Thus, you can call this method multiple times from the same block of code without triggering multiple layout updates.
+The actual layout update occurs during the next view layout update cycle.
+If you override this method, you must call super at some point in your implementation.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">invalidateLayout</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L148-L151">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(im)layoutAttributesForElementsInRect:"></a>
+                    <a name="//apple_ref/swift/Method/layoutAttributesForElements(in:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(im)layoutAttributesForElementsInRect:">layoutAttributesForElements(in:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the layout attributes for all of the cells and views in the specified rectangle.</p>
+
+<p>Subclasses must override this method and use it to return layout information for all items whose view intersects the specified rectangle.
+Your implementation should return attributes for all visual elements, including cells, supplementary views, and decoration views.
+When creating the layout attributes, always create an attributes object that represents the correct element type (cell, supplementary, or decoration).
+The collection view differentiates between attributes for each type and uses that information to make decisions about which views to create and how to manage them.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">layoutAttributesForElements</span><span class="p">(</span><span class="k">in</span> <span class="nv">rect</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UICollectionViewLayoutAttributes</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rect</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The rectangle (specified in the collection view’s coordinate system) containing the target views.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of UICollectionViewLayoutAttributes objects representing the layout information for the cells and views. The default implementation returns nil.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L161-L186">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(im)shouldInvalidateLayoutForBoundsChange:"></a>
+                    <a name="//apple_ref/swift/Method/shouldInvalidateLayout(forBoundsChange:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(im)shouldInvalidateLayoutForBoundsChange:">shouldInvalidateLayout(forBoundsChange:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asks the layout object if the new bounds require a layout update.</p>
+
+<p>The default implementation of this method returns false.
+Subclasses can override it and return an appropriate value based on whether changes in the bounds of the collection view require changes to the layout of cells and supplementary views.
+If the bounds of the collection view change and this method returns true, the collection view invalidates the layout by calling the invalidateLayout(with:) method.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">shouldInvalidateLayout</span><span class="p">(</span><span class="n">forBoundsChange</span> <span class="nv">newBounds</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>newBounds</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The new bounds of the collection view.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>true if the collection view requires a layout update or false if the layout does not need to change.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L195-L204">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(im)prepareLayout"></a>
+                    <a name="//apple_ref/swift/Method/prepare()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(im)prepareLayout">prepare()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Updates the current layout if collection view size have changed.</p>
+
+<p>This is needed, because for some weird iOS reason, when subclassing a <code>UICollectionView</code>,
+<code>func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -&gt; Bool</code> is never called.
+If this class is overridden, super should be called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">prepare</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L211-L216">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(im)targetContentOffsetForProposedContentOffset:withScrollingVelocity:"></a>
+                    <a name="//apple_ref/swift/Method/targetContentOffset(forProposedContentOffset:withScrollingVelocity:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ToosieSlide@objc(cs)UICollectionViewCarouselLayout(im)targetContentOffsetForProposedContentOffset:withScrollingVelocity:">targetContentOffset(forProposedContentOffset:withScrollingVelocity:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the point at which to stop scrolling.</p>
+
+<p>If you want the scrolling behaviour to snap to specific boundaries, you can override this method and use it to change the point at which to stop.
+For example, you might use this method to always stop scrolling on a boundary between items, as opposed to stopping in the middle of an item.
+If you override this method, you should call super which would return the expected point where to scroll to have the next centered cell.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">targetContentOffset</span><span class="p">(</span>
+  <span class="n">forProposedContentOffset</span> <span class="nv">proposedContentOffset</span><span class="p">:</span> <span class="kt">CGPoint</span><span class="p">,</span>
+  <span class="n">withScrollingVelocity</span> <span class="nv">velocity</span><span class="p">:</span> <span class="kt">CGPoint</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGPoint</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>proposedContentOffset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The proposed point (in the collection view’s content view) at which to stop scrolling.
+This is the value at which scrolling would naturally stop if no adjustments were made. The point reflects the upper-left corner of the visible content.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>velocity</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The current scrolling velocity along both the horizontal and vertical axes. This value is measured in points per second.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The point where to stop in order to have the next cell centralised.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/TheInkedEngineer/blob/master/Sources/ToosieSlide/UICollectionViewCarouselLayout.swift#L228-L266">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>TheInkedEngineer</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

@@ -4,6 +4,12 @@ All relative changes will be documented in this file. \
 `ToosieSlide` adheres to [Semantic Versioning](https://semver.org).
 
 ***
+## 1.1.x
+### April 29, 2020
+
+#### 1.1.0
+* `focusedItemHeightScaleFactor` was replaced by `focusedItemScaleFactor` and instead of resizing the cell's height, a  `transform` is applied to the cell.
+
 ## 1.0.x
 ### April 23, 2020
 
