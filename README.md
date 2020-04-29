@@ -48,7 +48,7 @@ dependencies: [
 lazy var collection: UICollectionView = {
   let carouselFlow = UICollectionViewCarouselLayout()
   carouselFlow.itemSize = CGSize(width: DemoCell.width, height: DemoCell.height)
-  carouselFlow.minimumLineSpacing = 50
+  carouselFlow.minimumLineSpacing = 10
   let collection = UICollectionView(collectionViewCarouselLayout: carouselFlow)
   collection.register(DemoCell.self, forCellWithReuseIdentifier: DemoCell.identifier)
   return collection
@@ -60,7 +60,7 @@ lazy var collection: UICollectionView = {
 ```swift
 let carouselFlow = UICollectionViewCarouselLayout()
 carouselfFlow.lowestVelocitySensitivity = 0.3
-carouselfFlow.focusedItemHeightScaleFactor = 1.1
+carouselfFlow.focusedItemScaleFactor = 1
 carouselfFlow.focusedItemAlphaValue = 1
 carouselfFlow.nonFocusedItemsScaleFactor = 0.5
 carouselfFlow.nonFocusedItemsAlphaValue = 0.7
