@@ -29,7 +29,7 @@ In addtion `ToosieSlide` supports automatic cell resizing and alpha difference b
 
 Add the following line to your `Podfile`
 
-` pod 'ToosieSlide', '~> 1.0'`
+` pod 'ToosieSlide', '~> 1.1'`
 
 ### Swift Package Manager
 
@@ -37,7 +37,7 @@ Add the following to you `Package.swift`
 
 ```
 dependencies: [
-    .package(url: "https://github.com/TheInkedEngineer/ToosieSlide.git", .upToNextMajor(from: "1.0.0"))
+    .package(url: "https://github.com/TheInkedEngineer/ToosieSlide.git", .upToNextMajor(from: "1.1.1"))
 ]
 ```
 ## 3. Code Example
