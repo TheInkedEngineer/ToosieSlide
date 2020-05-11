@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'ToosieSlide'
-  s.version          = "1.1.0"
+  s.version          = "1.1.1"
   s.summary          = 'A carousel layout provider for collection views'
   s.homepage         = 'https://theinkedengineer.com'
   s.license          = { :type => 'Apache License 2.0' }

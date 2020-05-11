@@ -40,11 +40,13 @@ public extension UICollectionView {
     // make sure index don't overflow
     let index = min(index, numberOfItems(inSection: 0) - 1)
     // get new offset
-    let finalOffset = carouselFlowLayout.currentOffset + CGFloat(index) * (carouselFlowLayout.itemSize.width + carouselFlowLayout.minimumLineSpacing)
+    let finalOffset = CGFloat(index) * (carouselFlowLayout.itemSize.width + carouselFlowLayout.minimumLineSpacing)
     // update visible cell
     carouselFlowLayout.currentVisibleCellIndex = index
     // navigate to offset
     setContentOffset(CGPoint(x: finalOffset, y: contentOffset.y), animated: animated)
+    // update the layout
+    carouselFlowLayout.invalidateLayout()
   }
   
   /// Returns the visible cell object at the specified `CellIndex`.

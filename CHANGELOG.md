@@ -5,6 +5,11 @@ All relative changes will be documented in this file. \
 
 ***
 ## 1.1.x
+### May 11, 2020
+
+#### 1.1.1
+* Fix a bug where scrolling to a cell index via code, resulted in wrong offset.
+
 ### April 29, 2020
 
 #### 1.1.0
