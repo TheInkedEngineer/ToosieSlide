@@ -45,6 +45,8 @@ public extension UICollectionView {
     carouselFlowLayout.currentVisibleCellIndex = index
     // navigate to offset
     setContentOffset(CGPoint(x: finalOffset, y: contentOffset.y), animated: animated)
+    // update the layout
+    carouselFlowLayout.invalidateLayout()
   }
   
   /// Returns the visible cell object at the specified `CellIndex`.
